@@ -1,0 +1,24 @@
+minio:
+  endpoint: http://localhost:9000 #MinIO服务所在地址
+  bucketName: video #存储桶名称
+  accessKey: AKIAIOSFODNN7EXAMPLE #访问的key
+  secretKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY #访问的秘钥
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/video_web?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: liujie
+      password: Qq961801961.
+
+server:
+  port: 8081
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+
