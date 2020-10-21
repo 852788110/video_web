@@ -6,9 +6,11 @@ import com.liu.mbg.model.Video;
 import com.liu.mbg.model.VideoExample;
 import com.liu.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class VideoServiceImpl implements VideoService {
     @Autowired
     private VideoMapper videoMapper;

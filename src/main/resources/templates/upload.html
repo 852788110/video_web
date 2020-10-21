@@ -5,11 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-<form name="uploadForm" action="/minio/upload" method="post" enctype="multipart/form-data">
-    <div>
-        <input id="uploadInput" type="file" name="file" multiple>
-    </div>
-    <div><input type="submit" value="Send file"></div>
-</form>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script type="text/javascript">
+    var vm=new Vue({
+        el: '#app',
+        data:{
+            message: "Hello, Mr. liu",
+            video:{
+                user_name:'',
+                name:'',
+                tags:'',
+                description:'',
+            }
+        }
+    });
+</script>
 </body>
 </html>

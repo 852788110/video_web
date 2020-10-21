@@ -1,13 +1,8 @@
 spring:
-  servlet:
-    multipart:
-      max-file-size: 500MB
-      max-request-size: 500MB
   datasource:
     url: jdbc:mysql://localhost:3306/video_web?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-      username: liujie
-      password: Qq961801961.
-
+    username: liujie
+    password: Qq961801961.
 server:
   port: 8081
 
@@ -15,10 +10,3 @@ mybatis:
   mapper-locations:
     - classpath:mapper/*.xml
     - classpath*:com/**/mapper/*.xml
-
-data:
-  elasticsearch:
-    repositories:
-      enabled: true
-    cluster-nodes: 127.0.0.1:9200 # es的连接地址及端口号
-    cluster-name: elasticsearch # es集群的名称
