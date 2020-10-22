@@ -55,6 +55,9 @@ public class EsVideoServiceImpl implements EsVideoService {
         esVideo.setPath(video.getPath());
         esVideo.setPicPath(video.getPicPath());
         esVideo.setViewCounts(video.getViewCounts());
+        esVideo.setDescription(video.getDescription());
+        esVideo.setTags(video.getTags());
+        esVideo.setCreateTime(video.getCreateTime().toString());
         return esVideo;
     }
 

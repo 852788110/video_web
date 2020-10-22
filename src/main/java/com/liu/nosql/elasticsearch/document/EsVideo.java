@@ -1,11 +1,14 @@
 package com.liu.nosql.elasticsearch.document;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Document(indexName = "video", shards = 1, replicas = 0)
 public class EsVideo implements Serializable {
@@ -28,7 +31,9 @@ public class EsVideo implements Serializable {
     private String tags;
     @Field(analyzer = "ik_max_word",type = FieldType.Text)
     private String description;
-    private Long stars;
+
+    @Field(type = FieldType.Date,format = DateFormat.basic_date)
+    private String createTime;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -106,11 +111,11 @@ public class EsVideo implements Serializable {
         this.description = description;
     }
 
-    public Long getStars() {
-        return stars;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setStars(Long stars) {
-        this.stars = stars;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }
