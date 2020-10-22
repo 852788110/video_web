@@ -31,4 +31,9 @@ public interface EsVideoService {
     *   根据关键字搜索视频
     * */
     Page<EsVideo> search(String keyword, Integer pageNum, Integer pageSize);
+
+    /*
+     *  返回elasticsearch中所有的视频信息
+     * */
+    Page<EsVideo> list(Integer pageNum, Integer pageSize);
 }

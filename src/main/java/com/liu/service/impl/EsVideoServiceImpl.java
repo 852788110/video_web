@@ -88,4 +88,10 @@ public class EsVideoServiceImpl implements EsVideoService {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         return videoRepository.findByNameOrDescriptionOrTagsOrUserName(keyword, keyword, keyword, keyword, pageable);
     }
+
+    @Override
+    public Page<EsVideo> list(Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return videoRepository.findAll(pageable);
+    }
 }
