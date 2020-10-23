@@ -7,10 +7,7 @@ import com.liu.service.EsVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,24 +18,14 @@ public class VideoController {
     @Autowired
     private EsVideoService esVideoService;
 
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
-    @ResponseBody
-    public String uploadVideo(){
-        /*
-        *   首先将数据插入到存储桶中
-        *   然后将数据写入到mysql中，
-        *   最后将数据从mysql中同步出来
-        * */
-        return "success";
-    }
-
     @RequestMapping(value = "/search",method = RequestMethod.GET)
     @ResponseBody
-    public String searchVideo(){
+    public CommonResult<CommonPage<EsVideo>> searchVideo(@RequestParam(value = "keyword") String keyword){
         /*
-        *   通过elasticsearch中的数据
+        *   查找elasticsearch中的数据
         * */
-        return "success";
+        Page<EsVideo> videos = esVideoService.search(keyword, 0, 5);
+        return CommonResult.success(CommonPage.restPage(videos));
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
@@ -58,7 +45,7 @@ public class VideoController {
         /*
         *   返回elasticsearch中的数据
         * */
-        Page<EsVideo> esVideos = esVideoService.list(5, 5);
+        Page<EsVideo> esVideos = esVideoService.list(0, 5);
 
         return CommonResult.success(CommonPage.restPage(esVideos));
     }
