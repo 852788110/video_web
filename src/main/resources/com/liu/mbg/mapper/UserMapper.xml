@@ -8,6 +8,8 @@
     <result column="video_count" jdbcType="INTEGER" property="videoCount" />
     <result column="video_comment_count" jdbcType="INTEGER" property="videoCommentCount" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, icon, video_count, video_comment_count, create_time
+    id, name, icon, video_count, video_comment_count, create_time, user_name, user_password
   </sql>
   <select id="selectByExample" parameterType="com.liu.mbg.model.UserExample" resultMap="BaseResultMap">
     select
@@ -105,9 +107,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into user (name, icon, video_count, 
-      video_comment_count, create_time)
+      video_comment_count, create_time, user_name, 
+      user_password)
     values (#{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{videoCount,jdbcType=INTEGER}, 
-      #{videoCommentCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+      #{videoCommentCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.liu.mbg.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -130,6 +134,12 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -146,6 +156,12 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -176,6 +192,12 @@
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null">
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,7 +210,9 @@
       icon = #{record.icon,jdbcType=VARCHAR},
       video_count = #{record.videoCount,jdbcType=INTEGER},
       video_comment_count = #{record.videoCommentCount,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -211,6 +235,12 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -220,7 +250,9 @@
       icon = #{icon,jdbcType=VARCHAR},
       video_count = #{videoCount,jdbcType=INTEGER},
       video_comment_count = #{videoCommentCount,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
