@@ -41,6 +41,10 @@ public class User implements Serializable {
      */
     private Date createTime;
 
+    private String userName;
+
+    private String userPassword;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -91,6 +95,22 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -103,6 +123,8 @@ public class User implements Serializable {
         sb.append(", videoCount=").append(videoCount);
         sb.append(", videoCommentCount=").append(videoCommentCount);
         sb.append(", createTime=").append(createTime);
+        sb.append(", userName=").append(userName);
+        sb.append(", userPassword=").append(userPassword);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
