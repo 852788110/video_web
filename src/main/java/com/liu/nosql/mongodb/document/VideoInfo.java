@@ -16,7 +16,7 @@ public class VideoInfo {
     @Indexed
     private String videoName;
     @Indexed
-    private Integer category;
+    private String category;
     private String videoPath;
     private Date createTime;
     private Date modifiedTime;
@@ -96,11 +96,11 @@ public class VideoInfo {
         this.viewCount = viewCount;
     }
 
-    public Integer getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 }

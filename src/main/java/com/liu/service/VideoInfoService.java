@@ -21,7 +21,7 @@ public interface VideoInfoService {
     /*
      *   根据category得到视频信息
      * */
-    List<VideoInfo> listByCategory(Integer category);
+    List<VideoInfo> listByCategory(String category);
 
     /*
      *   根据作者得到视频信息
@@ -33,4 +33,9 @@ public interface VideoInfoService {
     *   根据video_id得到视频信息
     * */
     VideoInfo findByVideoId(String videoId);
+
+    /*
+    *   根据video_id修改视频信息
+    * */
+    int update(String videoId);
 }
