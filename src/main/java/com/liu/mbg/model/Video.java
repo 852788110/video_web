@@ -76,6 +76,8 @@ public class Video implements Serializable {
      */
     private Long stars;
 
+    private String category;
+
     /**
      * 视频的描述信息
      *
@@ -173,6 +175,14 @@ public class Video implements Serializable {
         this.stars = stars;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -198,6 +208,7 @@ public class Video implements Serializable {
         sb.append(", createTime=").append(createTime);
         sb.append(", modifiedTime=").append(modifiedTime);
         sb.append(", stars=").append(stars);
+        sb.append(", category=").append(category);
         sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

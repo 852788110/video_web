@@ -3,7 +3,10 @@ package com.liu.controller;
 import com.liu.common.api.CommonPage;
 import com.liu.common.api.CommonResult;
 import com.liu.nosql.elasticsearch.document.EsVideo;
+import com.liu.nosql.mongodb.document.VideoInfo;
 import com.liu.service.EsVideoService;
+import com.liu.service.VideoInfoService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,9 @@ public class VideoController {
 
     @Autowired
     private EsVideoService esVideoService;
+
+    @Autowired
+    private VideoInfoService videoInfoService;
 
     @RequestMapping(value = "/search",method = RequestMethod.GET)
     @ResponseBody
@@ -48,5 +54,16 @@ public class VideoController {
         Page<EsVideo> esVideos = esVideoService.list(0, 5);
 
         return CommonResult.success(CommonPage.restPage(esVideos));
+    }
+
+    @ApiOperation("根据视频id得到视频的信息")
+    @RequestMapping(value = "/get",method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<VideoInfo> getById(@RequestParam String videoId){
+        VideoInfo videoInfo = videoInfoService.findByVideoId(videoId);
+        if (videoInfo!=null){
+            return CommonResult.success(videoInfo);
+        }
+        return CommonResult.failed();
     }
 }

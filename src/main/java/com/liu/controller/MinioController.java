@@ -49,8 +49,10 @@ public class MinioController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult upload(@RequestParam("file") MultipartFile file,
-                               Video video,
-                               @RequestParam("category") Integer category) {
+                               @RequestParam("filename") String filename,
+                               @RequestParam(value = "description",required = false) String description,
+                               @RequestParam(value = "username",required = false) String username,
+                               @RequestParam(value = "category",defaultValue = "0") String category) {
         try {
             //创建一个MinIO的Java客户端
             MinioClient minioClient = MinioClient.builder()
@@ -73,7 +75,7 @@ public class MinioController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
             // 设置存储对象名称
-            String objectName = video.getName();
+            String objectName = filename;
             // 使用putObject上传一个文件到存储桶中
             PutObjectArgs putObjectArgs = PutObjectArgs.builder()
                     .bucket(BUCKET_NAME)
@@ -83,7 +85,7 @@ public class MinioController {
             minioClient.putObject(putObjectArgs);
             LOGGER.info("文件上传成功!");
             MinioUploadDto minioUploadDto = new MinioUploadDto();
-            minioUploadDto.setName(video.getName());
+            minioUploadDto.setName(filename);
             minioUploadDto.setUrl(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
 
             /*
@@ -93,11 +95,17 @@ public class MinioController {
              *
              *   这个地方代码有点冗余
              * */
+            Video video=new Video();
+            video.setName(filename);
+            video.setUserName(username);
+            video.setDescription(description);
             video.setPath(minioUploadDto.getUrl());
             video.setCreateTime(new Date());
             video.setModifiedTime(new Date());
+            video.setCategory(category);
             videoService.createVideo(video);
 
+            Long id = video.getId();
             LOGGER.info("视频信息已插入到elasticsearch中");
             //esVideoService.create(video);
 
@@ -127,10 +135,15 @@ public class MinioController {
 
     private static VideoInfo createVideoInfo(Video video) {
         VideoInfo videoInfo = new VideoInfo();
+        videoInfo.setId(String.valueOf(video.getId()));
         videoInfo.setUsername(video.getUserName());
         videoInfo.setVideoName(video.getName());
+        videoInfo.setCategory(video.getCategory());
         videoInfo.setVideoPath(video.getPath());
         videoInfo.setDescription(video.getDescription());
+        videoInfo.setCreateTime(video.getCreateTime());
+        videoInfo.setModifiedTime(video.getModifiedTime());
+        videoInfo.setViewCount(0L);
         return videoInfo;
     }
 }

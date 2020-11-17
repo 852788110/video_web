@@ -41,7 +41,7 @@ public class VideoInfoServiceImpl implements VideoInfoService {
     }
 
     @Override
-    public List<VideoInfo> listByCategory(Integer category) {
+    public List<VideoInfo> listByCategory(String category) {
         return videoInfoRepository.findByCategoryOrderByViewCount(category);
     }
 
@@ -54,5 +54,10 @@ public class VideoInfoServiceImpl implements VideoInfoService {
     public VideoInfo findByVideoId(String videoId) {
         Optional<VideoInfo> videoInfo = videoInfoRepository.findById(videoId);
         return videoInfo.get();
+    }
+
+    @Override
+    public int update(String videoId) {
+        return 0;
     }
 }
